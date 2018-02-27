@@ -1,0 +1,96 @@
+
+ <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="testSuite" verbose="1" parallel="tests" thread-count="6">
+
+        <method-selectors>
+            <method-selector>
+
+                <script language="beanshell"><![CDATA[
+    
+                String sanityOnly = System.getProperty("sanityOnly");
+                Boolean runMethod = true;
+                
+                if (sanityOnly == null) {
+                
+                      sanityOnly = "false";
+                }
+                
+                if (sanityOnly.contains("true")) {
+                
+                    runMethod = groups.containsKey("sanity") && groups.containsKey("group1");
+                    
+                } else {
+                
+                    runMethod = groups.containsKey("group1");
+                }
+      
+                return runMethod;
+      
+                ]]></script>
+
+            </method-selector>
+        </method-selectors>
+
+    <parameter name="sampleRate" value="0.1"/>
+
+    <test name="group1">
+    <parameter name="parallelGroup" value="parallelGroup1"/>
+        <classes>
+            <class name="com.example.testNG.testNGThreads.tests.Group1Class1"  />
+
+        </classes>
+        
+    </test>
+    
+    <test name="group2">
+    <parameter name="parallelGroup" value="parallelGroup2"/>
+
+        <classes>
+            <class name="com.example.testNG.testNGThreads.tests.Group1Class2"  />
+
+        </classes>
+        
+    </test>
+    
+    <test name="group3">
+    <parameter name="parallelGroup" value="parallelGroup3"/>
+
+        <classes>            
+              <class name="com.example.testNG.testNGThreads.tests.Group1Class3"  />
+  
+        </classes>
+        
+    </test>
+    
+    <test name="group4">
+    <parameter name="parallelGroup" value="parallelGroup4"/>
+
+        <classes>
+            <class name="com.example.testNG.testNGThreads.tests.Group1Class4"  />
+
+        </classes>
+        
+    </test>
+    
+    <test name="group5">
+    <parameter name="parallelGroup" value="parallelGroup5"/>
+
+        <classes>
+            <class name="com.example.testNG.testNGThreads.tests.Group1Class5"  />
+
+        </classes>
+        
+    </test>
+    
+    <test name="group6">
+    <parameter name="parallelGroup" value="parallelGroup6"/>
+
+        <classes>
+            <class name="com.example.testNG.testNGThreads.tests.Group1Class6"  />
+
+        </classes>
+        
+    </test>
+
+</suite>

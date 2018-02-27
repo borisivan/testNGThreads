@@ -1,0 +1,164 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example.testNG</groupId>
+    <artifactId>testNGThreads</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>testNGThreads</name>   
+
+
+    <dependencies>
+
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
+        </dependency>
+        
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.22</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>doclint-java8-disable</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <pluginManagement>
+
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.0</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+
+                        <skip>true</skip>
+                        <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                        <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
+                    </configuration>
+
+                    <executions>
+
+                        <execution>
+                            <id>default-test</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                            <configuration>
+                                <testFailureIgnore>true</testFailureIgnore>
+
+                                <reportsDirectory>${project.build.directory}/site</reportsDirectory>
+                                <skip>false</skip>
+                                <maven.test.failure.ignore>true</maven.test.failure.ignore>
+                                <properties>
+                                    <property>
+                                        <name>usedefaultlisteners</name>
+                                        <value>false</value>
+                                    </property>
+                                    <property>
+                                        <name>listener</name>
+                                        <value>org.testng.reporters.XMLReporter,org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter</value>
+                                    </property>
+                                </properties>
+                                <systemPropertyVariables>
+                                    <org.uncommons.reportng.title>"testNGThreads"</org.uncommons.reportng.title>
+                                    <org.uncommons.reportng.frames>false</org.uncommons.reportng.frames>
+                                    <!-- <org.uncommons.reportng.stylesheet>hudsonesque.css</org.uncommons.reportng.stylesheet> -->
+                                </systemPropertyVariables>
+                                <testClassesDirectory>${project.build.directory}/classes</testClassesDirectory>
+                                <suiteXmlFiles>
+                                    <suiteXmlFile>${suiteFile}</suiteXmlFile>
+                                </suiteXmlFiles>
+
+                            </configuration>
+                        </execution>
+
+                    </executions>
+
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>2.10</version>
+            </extension>
+        </extensions>
+
+    </build>
+
+    <reporting>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <excludes>*_manual</excludes>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+    </reporting>
+
+    <description>testNGThreads</description>
+</project>
